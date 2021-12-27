@@ -1,33 +1,31 @@
 import * as React from "react";
-import { List, Datagrid, TextField, BooleanField, Edit, TextInput, BooleanInput, SimpleForm, Create } from 'react-admin';
+import { List, Datagrid, TextField, Edit, TextInput, SimpleForm, Create, ReferenceInput, SelectInput, ReferenceField } from 'react-admin';
 
-export const SlideShowList = props => (
+export const SlideshowList = props => (
     <List {...props}>
         <Datagrid rowClick="edit">
             <TextField source="id" />
+            <ReferenceField source="screenId" reference="screens"><TextField source="name" /></ReferenceField>
             <TextField source="name" />
-            <TextField source="location" />
         </Datagrid>
     </List>
 );
 
-export const SlideShowEdit = props => (
+export const SlideshowEdit = props => (
     <Edit {...props}>
         <SimpleForm>
-            <TextInput disabled source="id" />
+            <TextInput source="id" disabled />
+            <ReferenceInput source="screenId" reference="screens"><SelectInput optionText="name" /></ReferenceInput>
             <TextInput source="name" />
-            <TextInput source="location" />
-            <TextInput source="authKey" />
         </SimpleForm>
     </Edit>
 );
 
-export const SlideShowCreate = props => (
+export const SlideshowCreate = props => (
     <Create {...props}>
         <SimpleForm>
+            <ReferenceInput source="screenId" reference="screens"><SelectInput optionText="name" /></ReferenceInput>
             <TextInput source="name" />
-            <TextInput source="location" />
-            <TextInput source="authKey" />
         </SimpleForm>
     </Create>
 );

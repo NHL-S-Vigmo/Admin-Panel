@@ -1,7 +1,7 @@
 import * as React from "react";
 import { List, Datagrid, TextField, BooleanField, Edit, TextInput, BooleanInput, SimpleForm, Create, ReferenceInput, SelectInput } from 'react-admin';
 
-export const UserList = props => (
+export const RssSlideList = props => (
     <List {...props}>
         <Datagrid rowClick="edit">
             <TextField source="id" />
@@ -13,7 +13,7 @@ export const UserList = props => (
     </List>
 );
 
-export const UserEdit = props => (
+export const RssSlideEdit = props => (
     <Edit {...props}>
         <SimpleForm>
             <TextInput disabled source="id" />
@@ -26,7 +26,7 @@ export const UserEdit = props => (
     </Edit>
 );
 
-export const UserCreate = props => (
+export const RssSlideCreate = props => (
     <Create {...props}>
         <SimpleForm>
             <TextInput source="username" />
