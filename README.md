@@ -68,3 +68,18 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# Installation
+The detailed installation guide is yet to be made.
+
+## Configuration
+To setup the project, we need to set some configuration values in order to work correctly. These values have to be stored in an `.env` file.
+- Create your own `.env` file in the root map
+- Set the values from the example below according to your environment.
+  ```
+  REACT_APP_DATA_URL=http://localhost:6965
+  REACT_APP_AUTH_URL=${REACT_APP_DATA_URL}/authenticate
+  ```
+- Save the file
+
+The `REACT_APP_DATA_URL` is the url where the api is stored. The `REACT_APP_AUTH_URL` is the route where the application wants to authenticate the user. For most instances you can leave this default.
