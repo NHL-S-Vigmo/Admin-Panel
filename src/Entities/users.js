@@ -18,7 +18,7 @@ export const UsersEdit = props => (
         <SimpleForm>
             <TextInput disabled source="id" />
             <TextInput source="username" />
-            <TextInput source="password" />
+            <TextInput source="password" placeholder="(leave blank to not change)" />
             <BooleanInput source="enabled" />
             <TextInput source="role" />
             {/* <TextInput source="pfpLocation" /> */}
