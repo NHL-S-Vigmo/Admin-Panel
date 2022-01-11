@@ -1,76 +1,18 @@
-# Getting Started with Create React App
+# NHL-S-Vigmo Admin Panel
+_This project works with the [NHL-S-Vigmo Api](https://github.com/NHL-S-Vigmo/Api), which is a project for the Advanced Java Minor and is made by Students. The Admin Panel will allow the teachers to manage the digital dashboard in the aula_
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![dashboard-example](docs/img/dashboard-example.png?raw=true "Dashboard Example")
 
 # Installation
-The detailed installation guide is yet to be made.
+The installation guide is written with in mind that you have a windows computer with a windows operating system.
+
+To install the Admin Panel correctly, you should first follow the installation steps of the [Api Repository](https://github.com/NHL-S-Vigmo/Api#how-to-install). Once you have installed the [Api Repository](https://github.com/NHL-S-Vigmo/Api#how-to-install), run the webserver and mysql server. After following the [Api Repository](https://github.com/NHL-S-Vigmo/Api#how-to-install) steps you have to make sure you have installed the latest LTS version of `nodejs`. You can do this by downloading and installing this via [this installation link](https://nodejs.org/en/download/). Once you have everything installed, you can begin to install the Admin Panel.  
+
+Start by downloading the project and saving it to your new favourite folder. Once you have installed the project open a terminal at the root path of the Admin Panel project. You can quickly do this by typing `cmd` in the navigation bar and pressing `enter`.
+
+![open-cmd-help](docs/img/open-cmd-help.png?raw=true "Open CMD")
+
+With the open cmd tab (where the path should end with the name of your favourite root folder where you installed the project) type the following command: `npm install` and pressing `enter`. This may take a minute or two. 
 
 ## Configuration
 To setup the project, we need to set some configuration values in order to work correctly. These values have to be stored in an `.env` file.
@@ -82,4 +24,9 @@ To setup the project, we need to set some configuration values in order to work 
   ```
 - Save the file
 
-The `REACT_APP_DATA_URL` is the url where the api is stored. The `REACT_APP_AUTH_URL` is the route where the application wants to authenticate the user. For most instances you can leave this default.
+The `REACT_APP_DATA_URL` is the url where the api is served. The `REACT_APP_AUTH_URL` is the route where the application wants to authenticate the user. For most instances you dont have to change the authentication url.
+
+## Run the project
+After installing the project, start the Admin Panel by typing the following command: `npm start` and pressing `enter`. This can also take a minute or two. When this is finished, your browser should automatically pop up and redirect you to the login screen [http://localhost:3000/](http://localhost:3000/#/login).
+
+![login-screen](docs/img/login-screen.png?raw=true "Login Screen")
