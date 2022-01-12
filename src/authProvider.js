@@ -10,14 +10,19 @@ export default {
     return fetch(request)
       .then(response => {
         if (response.status < 200 || response.status >= 300) {
-          throw new Error(response.statusText);
+          let errorMessage;
+          if(response.status == 401) {
+            errorMessage = "Bad credentials. ";
+          } else if(response.status == 403) {
+            errorMessage = "Account disabled. ";
+          }
+          throw new Error(response.statusText + errorMessage + "We could not sign you in");
         }
         return response.headers.get('jwt-token');
       })
       .then((token) => {
         const decodedToken = decodeJwt(token);
         localStorage.setItem('token', token);
-        localStorage.setItem('permissions', decodedToken.role);
       });
   },
   logout: () => {
@@ -25,19 +30,28 @@ export default {
     return Promise.resolve();
   },
   checkError: error => {
-    // ...
+    const status = error.status;
+    if (status === 401 || status === 403) {
+        localStorage.removeItem('token');
+        return Promise.reject();
+    }
+    return Promise.resolve();
   },
   checkAuth: () => {
     return localStorage.getItem('token') ? Promise.resolve() : Promise.reject();
   },
   getPermissions: () => {
-    const role = localStorage.getItem('permissions');
+    const { role } = decodeJwt(localStorage.getItem('token'));
     return role ? Promise.resolve(role) : Promise.reject();
   },
   getIdentity: () => {
       try {
-          const { id, username, profilePicture } = JSON.parse(localStorage.getItem('token'));
-          return Promise.resolve({ id, username, profilePicture });
+          const token = localStorage.getItem('token');
+          const { sub, role, pfp_location } = decodeJwt(token);
+          let id = 1;
+          let fullName = sub;
+          let avatar = pfp_location;
+          return Promise.resolve({ id, fullName, avatar });
       } catch (error) {
           return Promise.reject(error);
       }

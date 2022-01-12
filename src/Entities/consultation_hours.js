@@ -1,5 +1,6 @@
 import * as React from "react";
-import { List, Datagrid, TextField, BooleanField, Edit, TextInput, BooleanInput, SimpleForm, Create } from 'react-admin';
+import { List, Datagrid, TextField, BooleanField, Edit, TextInput, BooleanInput, SimpleForm, SelectInput, Create } from 'react-admin';
+import { workDays } from '../Constants';
 
 export const ConsultationHoursList = props => (
     <List {...props}>
@@ -18,7 +19,7 @@ export const ConsultationHoursEdit = props => (
         <SimpleForm>
             <TextInput source="id" disabled />
             <TextInput source="description" />
-            <TextInput source="weekDay" />
+            <SelectInput source="weekDay" choices={workDays} />
             <TextInput source="startTime" />
             <TextInput source="endTime" />
         </SimpleForm>
@@ -29,7 +30,7 @@ export const ConsultationHoursCreate = props => (
     <Create {...props}>
         <SimpleForm>
             <TextInput source="description" />
-            <TextInput source="weekDay" />
+            <SelectInput source="weekDay" choices={workDays} />
             <TextInput source="startTime" />
             <TextInput source="endTime" />
         </SimpleForm>

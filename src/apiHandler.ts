@@ -76,7 +76,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson): DataProvider => ({
         httpClient(`${apiUrl}/${resource}/${params.id}`, {
             method: 'PUT',
             body: JSON.stringify(params.data),
-        }).then(({ json }) => ({ data: json })),
+        }).then(() => ({ data: params.data })),
 
     // json-server doesn't handle filters on UPDATE route, so we fallback to calling UPDATE n times instead
     updateMany: (resource, params) =>
@@ -87,7 +87,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson): DataProvider => ({
                     body: JSON.stringify(params.data),
                 })
             )
-        ).then(responses => ({ data: responses.map(({ json }) => json.id) })),
+        ).then(responses => ({ data: params.ids.map((id) => JSON.parse(`{"id":"${id}"}`)) })),
 
     create: (resource, params) =>
         httpClient(`${apiUrl}/${resource}`, {
@@ -100,7 +100,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson): DataProvider => ({
     delete: (resource, params) =>
         httpClient(`${apiUrl}/${resource}/${params.id}`, {
             method: 'DELETE',
-        }).then(({ json }) => ({ data: json })),
+        }).then(({ json }) => ({ data: JSON.parse(`{"id":"${params.id}"}`) })),
 
     // json-server doesn't handle filters on DELETE route, so we fallback to calling DELETE n times instead
     deleteMany: (resource, params) =>
@@ -110,5 +110,5 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson): DataProvider => ({
                     method: 'DELETE',
                 })
             )
-        ).then(responses => ({ data: responses.map(({ json }) => json.id) })),
+        ).then(responses => ({ data: params.ids.map((id) => JSON.parse(`{"id":"${id}"}`)) })),
 });

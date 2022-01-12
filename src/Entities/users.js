@@ -1,5 +1,6 @@
 import * as React from "react";
 import { List, Datagrid, TextField, BooleanField, ImageField, Edit, TextInput, BooleanInput, SimpleForm, Create, ReferenceInput, SelectInput, ImageInput } from 'react-admin';
+import { userRoles } from '../Constants';
 
 export const UsersList = props => (
     <List {...props}>
@@ -19,8 +20,8 @@ export const UsersEdit = props => (
             <TextInput disabled source="id" />
             <TextInput source="username" />
             <TextInput source="password" placeholder="(leave blank to not change)" />
-            <BooleanInput source="enabled" />
-            <TextInput source="role" />
+            <BooleanInput source="enabled" checked />
+            <SelectInput source="role" choices={userRoles} />
             {/* <TextInput source="pfpLocation" /> */}
             <ImageInput source="pfpLocation" label="Profile Picture" accept="image/*">
                 <ImageField source="src" title="title" />
@@ -35,7 +36,7 @@ export const UsersCreate = props => (
             <TextInput source="username" />
             <TextInput source="password" />
             <BooleanInput source="enabled" />
-            <TextInput source="role" />
+            <SelectInput source="role" choices={userRoles} />
             {/* <TextInput source="pfpLocation" /> */}
             <ImageInput source="pfpLocation" label="Profile Picture" accept="image/*">
                 <ImageField source="src" title="title" />

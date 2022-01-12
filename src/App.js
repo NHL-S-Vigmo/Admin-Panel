@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Admin, Resource, ListGuesser, EditGuesser, fetchUtils } from 'react-admin';
+import { Admin, Resource, fetchUtils, AppBar } from 'react-admin';
 import apiHandler from "./apiHandler.ts";
 import authProvider from './authProvider';
 
@@ -36,9 +36,27 @@ const dataProvider = apiHandler(process.env.REACT_APP_DATA_URL, httpClient);
 
 const App = () => (
     <Admin dataProvider={dataProvider} authProvider={authProvider}>
-        <Resource name="users" list={UsersList} edit={UsersEdit} create={UsersCreate} icon={UserIcon} />
-        <Resource name="availabilities" list={AvailabilitiesList} edit={AvailabilitiesEdit} create={AvailabilitiesCreate} icon={AvailablilityIcon} />
-        <Resource name="consultation_hours" list={ConsultationHoursList} edit={ConsultationHoursEdit} create={ConsultationHoursCreate} icon={ConsultationHourIcon} />
+        
+        {permissions => [
+            <Resource
+                name="users"
+                list={UsersList}
+                edit={permissions === 'ROLE_ADMIN' ? UsersEdit : null}
+                create={UsersCreate}
+                icon={UserIcon}
+            />,
+            // permissions === 'ROLE_ADMIN'
+            //     ? <Resource name="users" list={UsersList} edit={UsersEdit} create={UsersCreate} icon={UserIcon} />
+            //     : null,
+            
+            // permissions === 'ROLE_ADMIN'
+            //     ? <Resource name="consultation_hours" list={ConsultationHoursList} edit={ConsultationHoursEdit} create={ConsultationHoursCreate} icon={ConsultationHourIcon} />
+            //     : null,
+        
+            // permissions === 'ROLE_ADMIN'
+            //     ? <Resource name="availabilities" list={AvailabilitiesList} edit={AvailabilitiesEdit} create={AvailabilitiesCreate} icon={AvailablilityIcon} />
+            //     : null,
+        ]}
         
         <Resource name="screens" list={ScreensList} edit={ScreensEdit} create={ScreensCreate} icon={ScreenIcon} />
         <Resource name="slideshows" list={SlideshowList} edit={SlideshowEdit} create={SlideshowCreate} icon={SlideshowIcon} />
