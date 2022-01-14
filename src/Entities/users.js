@@ -1,18 +1,33 @@
 import * as React from "react";
 import { List, Datagrid, TextField, BooleanField, ImageField, SelectField, Edit, TextInput, BooleanInput, SimpleForm, Create, ReferenceInput, SelectInput, ImageInput } from 'react-admin';
 import { userRoles } from '../Constants';
+import { makeStyles } from '@material-ui/core/styles';
 
-export const UsersList = props => (
-    <List {...props}>
-        <Datagrid rowClick="edit">
-            <TextField source="id" />
-            <TextField source="username" />
-            <SelectField source="role" choices={userRoles} />
-            <TextField source="pfpLocation" />
-            <BooleanField source="enabled" />
-        </Datagrid>
-    </List>
-);
+
+const useImageFieldStyles = makeStyles(theme => ({
+    image: {
+        height: 25,
+        display: "table"
+    }
+}));
+
+export const UsersList = props => {
+
+    //get styles for the ImageField
+    const imageFieldClasses = useImageFieldStyles();
+
+    return (
+        <List {...props}>
+            <Datagrid rowClick="edit">
+                <TextField source="id" />
+                <TextField source="username" />
+                <SelectField source="role" choices={userRoles} />
+                <ImageField classes={imageFieldClasses} source="pfpLocation" label="Profile Picture" emptyText="Picture not available" />
+                <BooleanField source="enabled" />
+            </Datagrid>
+        </List>
+    );
+};
 
 export const UsersEdit = props => (
     <Edit {...props}>
