@@ -18,33 +18,46 @@ const customDataProvider = {
     update: (resource, params) => {
         switch (resource) {
             case 'media_slides':
-                return Promise.resolve(convertFileToBase64(params.data.resource))
+                let file = params.data.resource;
+                if (typeof file === "string") {
+                    return dataProvider.update(resource, params);
+                }
+                else{
+                    return Promise.resolve(convertFileToBase64(file))
                     .then((file64) => ({
                         data: file64,
-                        name: `${params.data.resource.rawFile.name}`,
-                        mimeType: `${params.data.resource.rawFile.type}`,
+                        name: `${file.rawFile.name}`,
+                        mimeType: `${file.rawFile.type}`,
                     }))
-                    .then(data => dataProvider.create('files', { data }))
-                    .then(file => { return dataProvider.getOne('files', { id: file.data.id }) })
+                    .then(data => uploadFileToApi(data))
                     .then(file => {
                         params.data.resource = `${process.env.REACT_APP_DATA_URL}/files/${file.data.key}/render`;
                         return dataProvider.update(resource, params);
                     });
+                }
+                
             case 'users':
-                //TODO: Check if it is an image
+                let image = params.data.pfpLocation;
+                // check if the file was changed, you can do this by checking if its type is string, 
+                // if the image was changed, it would be of type object.
+                if (typeof image === "string") {
+                    return dataProvider.update(resource, params);
+                }
+                else {
+                    //TODO: Check if it is an image
 
-                return Promise.resolve(convertFileToBase64(params.data.pfp_location))
-                    .then((picture64) => ({
-                        data: picture64,
-                        name: `${params.data.pfp_location.rawFile.name}`,
-                        mimeType: `${params.data.pfp_location.rawFile.type}`,
-                    }))
-                    .then(data => dataProvider.create('files', { data }))
-                    .then(file => { return dataProvider.getOne('files', { id: file.data.id }) })
-                    .then(file => {
-                        params.data.pfp_location = `${process.env.REACT_APP_DATA_URL}/files/${file.data.key}/render`;
-                        return dataProvider.update(resource, params);
-                    });
+                    return Promise.resolve(convertFileToBase64(image))
+                        .then((picture64) => ({
+                            data: picture64,
+                            name: `${image.rawFile.name}`,
+                            mimeType: `${image.rawFile.type}`,
+                        }))
+                        .then(data => uploadFileToApi(data))
+                        .then(file => {
+                            params.data.pfpLocation = `${process.env.REACT_APP_DATA_URL}/files/${file.data.key}/render`;
+                            return dataProvider.update(resource, params);
+                        });
+                }
             default:
                 return dataProvider.update(resource, params);
         }
@@ -64,6 +77,18 @@ const convertFileToBase64 = file =>
         }
         reader.onerror = reject;
         reader.readAsDataURL(file.rawFile);
+    });
+
+/**
+ * Function that takes the base64 of a file and upload it to the API. The function will return the file object it created.
+ * @param {String} data the base64 representation of the file
+ * @returns returns the file object from the database.
+ */
+const uploadFileToApi = data =>
+    new Promise((resolve, reject) => {
+        dataProvider.create('files', { data })
+            .then(file => dataProvider.getOne('files', { id: file.data.id }))
+            .then(result => resolve(result));
     });
 
 export default customDataProvider;
