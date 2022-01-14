@@ -11,9 +11,9 @@ export default {
       .then(response => {
         if (response.status < 200 || response.status >= 300) {
           let errorMessage;
-          if(response.status == 401) {
+          if(response.status === 401) {
             errorMessage = "Bad credentials. ";
-          } else if(response.status == 403) {
+          } else if(response.status === 403) {
             errorMessage = "Account disabled. ";
           }
           throw new Error(response.statusText + errorMessage + "We could not sign you in");
@@ -21,7 +21,6 @@ export default {
         return response.headers.get('jwt-token');
       })
       .then((token) => {
-        const decodedToken = decodeJwt(token);
         localStorage.setItem('token', token);
       });
   },

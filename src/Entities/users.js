@@ -1,5 +1,5 @@
 import * as React from "react";
-import { List, Datagrid, TextField, BooleanField, ImageField, Edit, TextInput, BooleanInput, SimpleForm, Create, ReferenceInput, SelectInput, ImageInput } from 'react-admin';
+import { List, Datagrid, TextField, BooleanField, ImageField, SelectField, Edit, TextInput, BooleanInput, SimpleForm, Create, ReferenceInput, SelectInput, ImageInput } from 'react-admin';
 import { userRoles } from '../Constants';
 
 export const UsersList = props => (
@@ -7,7 +7,7 @@ export const UsersList = props => (
         <Datagrid rowClick="edit">
             <TextField source="id" />
             <TextField source="username" />
-            <TextField source="role" />
+            <SelectField source="role" choices={userRoles}/>
             <TextField source="pfpLocation" />
             <BooleanField source="enabled" />
         </Datagrid>
@@ -35,7 +35,7 @@ export const UsersCreate = props => (
         <SimpleForm>
             <TextInput source="username" />
             <TextInput source="password" />
-            <BooleanInput source="enabled" />
+            <BooleanInput source="enabled" defaultValue/>
             <SelectInput source="role" choices={userRoles} />
             {/* <TextInput source="pfpLocation" /> */}
             <ImageInput source="pfpLocation" label="Profile Picture" accept="image/*">

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { List, Datagrid, TextField, Edit, TextInput, SimpleForm, Create, ReferenceField, ReferenceInput, SelectInput } from 'react-admin';
+import { List, Datagrid, TextField, SelectField, Edit, TextInput, SimpleForm, Create, ReferenceField, ReferenceInput, SelectInput } from 'react-admin';
 import { workDays } from '../Constants';
 
 export const AvailabilitiesList = props => (
@@ -8,6 +8,7 @@ export const AvailabilitiesList = props => (
             <TextField source="id" />
             <ReferenceField source="userId" reference="users"><TextField source="username" /></ReferenceField>
             <TextField source="weekDay" />
+            <SelectField source="weekDay" choices={workDays}/>
             <TextField source="startTime" />
             <TextField source="endTime" />
         </Datagrid>

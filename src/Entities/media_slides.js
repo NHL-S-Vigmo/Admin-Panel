@@ -1,5 +1,5 @@
 import * as React from "react";
-import { List, Datagrid, TextField, ReferenceField, BooleanField, NumberField, DateField, UrlField, Edit, TextInput, BooleanInput, NumberInput, DateInput, SimpleForm, Create, ReferenceInput, SelectInput } from 'react-admin';
+import { List, Datagrid, TextField, ReferenceField, BooleanField, NumberField, DateField, UrlField, Edit, TextInput, BooleanInput, NumberInput, DateInput, SimpleForm, Create, ReferenceInput, SelectInput, FileInput, FileField } from 'react-admin';
 
 export const MediaSlidesList = props => (
     <List {...props}>
@@ -32,7 +32,10 @@ export const MediaSlidesEdit = props => (
             <TextInput source="endTime" />
             <BooleanInput source="audioEnabled" />
             <TextInput source="type" />
-            <TextInput source="resource" />
+            {/* <TextInput source="resource" /> */}
+            <FileInput source="resource" label="Related files">
+                <FileField source="src" title="name" />
+            </FileInput>
         </SimpleForm>
     </Edit>
 );
