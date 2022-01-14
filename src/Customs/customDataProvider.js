@@ -12,42 +12,42 @@ const httpClient = (url, options = {}) => {
 };
 
 const dataProvider = apiHandler(process.env.REACT_APP_DATA_URL, httpClient);
-// const dataProvider = simpleRestProvider(process.env.REACT_APP_DATA_URL);
 
 const customDataProvider = {
     ...dataProvider,
     update: (resource, params) => {
-        // if (resource !== 'media_slides'){ // resource !== 'users' || !params.data.pfpLocation) {
-            return dataProvider.update(resource, params);
-        // }
+        switch (resource) {
+            case 'media_slides':
+                return Promise.resolve(convertFileToBase64(params.data.resource))
+                    .then((file64) => ({
+                        data: file64,
+                        name: `${params.data.resource.rawFile.name}`,
+                        mimeType: `${params.data.resource.rawFile.type}`,
+                    }))
+                    .then(data => dataProvider.create('files', { data }))
+                    .then(file => { return dataProvider.getOne('files', { id: file.data.id }) })
+                    .then(file => {
+                        params.data.resource = `${process.env.REACT_APP_DATA_URL}/files/${file.data.key}/render`;
+                        return dataProvider.update(resource, params);
+                    });
+            case 'users':
+                //TODO: Check if it is an image
 
-        // console.log(params.data.resource);
-        
-        // const myFile = params.data.resource;
-        // if ( !myFile.rawFile instanceof File ){
-        //     return Promise.reject('Error: Not a file...'); // Didn't test this...
-        // }
-        
-        // // const myFile = params.data.pfpLocation;
-        // // if ( !myFile.rawFile instanceof File ){
-        // //     return Promise.reject('Error: Not a file...'); // Didn't test this...
-        // // }
-
-        // return Promise.resolve( convertFileToBase64(myFile) )
-        //     .then( (picture64) => ({
-        //         file: picture64,
-        //         fileName: `${myFile.rawFile.name}`,
-        //         mimeType: `${myFile.rawFile.type}`,
-        //     }))
-        //     .then( data => dataProvider.create('files', { data } ));
-        //     // .then(transformedMyFile => dataProvider.update(resource, {
-        //     //         ...params,
-        //     //         data: {
-        //     //             ...params.data,
-        //     //             picture: transformedMyFile,
-        //     //         },
-        //     //     })
-        //     // );
+                return Promise.resolve(convertFileToBase64(params.data.pfp_location))
+                    .then((picture64) => ({
+                        data: picture64,
+                        name: `${params.data.pfp_location.rawFile.name}`,
+                        mimeType: `${params.data.pfp_location.rawFile.type}`,
+                    }))
+                    .then(data => dataProvider.create('files', { data }))
+                    .then(file => { return dataProvider.getOne('files', { id: file.data.id }) })
+                    .then(file => {
+                        params.data.pfp_location = `${process.env.REACT_APP_DATA_URL}/files/${file.data.key}/render`;
+                        return dataProvider.update(resource, params);
+                    });
+            default:
+                return dataProvider.update(resource, params);
+        }
     },
 };
 
@@ -59,9 +59,10 @@ const customDataProvider = {
 const convertFileToBase64 = file =>
     new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
+        reader.onload = function () {
+            resolve(reader.result.split(',')[1]);
+        }
         reader.onerror = reject;
-
         reader.readAsDataURL(file.rawFile);
     });
 
