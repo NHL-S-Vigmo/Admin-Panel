@@ -31,6 +31,7 @@ const customDataProvider = {
                     }))
                     .then(data => uploadFileToApi(data))
                     .then(file => {
+                        params.data.type = file.data.mimeType;
                         params.data.resource = `${process.env.REACT_APP_DATA_URL}/files/${file.data.key}/render`;
                         return dataProvider.update(resource, params);
                     });
