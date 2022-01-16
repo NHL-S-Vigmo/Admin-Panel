@@ -57,11 +57,7 @@ const StatusBar = () => {
     return (
         <div className="component-statusbar">
             <div >
-                <TransitionGroup component="div">
-                <div key="exampppss">
-                        {currentDisplay.text}
-                    </div>
-                </TransitionGroup>
+                {currentDisplay.text}
             </div>
         </div>
     );
