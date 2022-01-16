@@ -36,7 +36,7 @@ const httpClient = (url, options = {}) => {
 // const dataProvider = apiHandler(process.env.REACT_APP_DATA_URL, httpClient);
 const uploadCapableDataProvider = customDataProvider;
 
-const App = () => (
+const VigmoAdmin = () => (
     <Admin dataProvider={uploadCapableDataProvider} authProvider={authProvider}>
         {permissions => [
             permissions === 'ROLE_ADMIN' ? (
@@ -62,4 +62,4 @@ const App = () => (
     </Admin>
 );
 
-export default App;
+export default VigmoAdmin;

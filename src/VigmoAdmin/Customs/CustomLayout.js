@@ -3,7 +3,7 @@ import CustomAppBar from './CustomAppBar';
 
 const CustomLayout = props => <Layout
     {...props}
-    // appBar={CustomAppBar}
+// appBar={CustomAppBar}
 />;
 
 export default CustomLayout;

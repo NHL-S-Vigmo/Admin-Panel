@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import VigmoAdmin from './VigmoAdmin/VigmoAdmin.js';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <VigmoAdmin />
   </React.StrictMode>,
   document.getElementById('root')
 );
