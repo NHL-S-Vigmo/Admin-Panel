@@ -1,23 +1,23 @@
 import * as React from "react";
-import { Admin, Resource, fetchUtils, AppBar } from 'react-admin';
-
-import { Link } from "react-router-dom";
+import { fetchUtils } from 'react-admin';
+import SlideShowPanel from "./component/SlideShowPanel";
+import StatusBar from "./component/StatusBar";
+import './VigmoDashboard.css'
 
 const httpClient = (url, options = {}) => {
     if (!options.headers) {
         options.headers = new Headers({ Accept: 'application/json' });
     }
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('screen_token');
     options.headers.set('Authorization', `Bearer ${token}`);
     return fetchUtils.fetchJson(url, options);
 };
 
 const VigmoDashboard = () => (
-    <Link to="/admin">
-        <button variant="outlined">
-            Go to adminpanel
-        </button>
-    </Link>
+    <div className="component-app">
+        <SlideShowPanel />
+        <StatusBar />
+    </div>
 );
 
 export default VigmoDashboard;
