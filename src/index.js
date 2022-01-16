@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import VigmoAdmin from './VigmoAdmin/VigmoAdmin.js';
+import VigmoRouter from './VigmoRouter';
+import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <VigmoAdmin />
-  </React.StrictMode>,
+  <BrowserRouter>
+    <VigmoRouter />
+  </BrowserRouter>,
   document.getElementById('root')
 );
 
