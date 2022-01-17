@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { AppBar } from 'react-admin';
+import CustomUserMenu from './customUserMenu';
 
-const CustomAppBar = props => (
-    <AppBar {...props} />
+const customAppBar = props => (
+    <AppBar {...props} userMenu={<CustomUserMenu />} />
 );
 
-export default CustomAppBar;
+export default customAppBar;

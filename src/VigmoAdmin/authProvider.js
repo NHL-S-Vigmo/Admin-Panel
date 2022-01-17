@@ -46,8 +46,7 @@ export default {
   getIdentity: () => {
       try {
           const token = localStorage.getItem('token');
-          const { sub, role, pfp_location } = decodeJwt(token);
-          let id = 1;
+          const { id, sub, role, pfp_location } = decodeJwt(token);
           let fullName = sub;
           let avatar = pfp_location;
           return Promise.resolve({ id, fullName, avatar });

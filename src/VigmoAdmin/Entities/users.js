@@ -37,7 +37,6 @@ export const UsersEdit = props => (
             <TextInput source="password" placeholder="(leave blank to not change)" />
             <BooleanInput source="enabled" checked />
             <SelectInput source="role" choices={userRoles} />
-            {/* <TextInput source="pfpLocation" /> */}
             <ImageField source="pfpLocation" label="Profile Picture" emptyText="Picture not available" />
             <ImageInput source="pfpLocation" label="Upload a new picture" accept="image/*">
                 <ImageField source="src" title="title" />
@@ -53,7 +52,6 @@ export const UsersCreate = props => (
             <TextInput source="password" />
             <BooleanInput source="enabled" defaultValue />
             <SelectInput source="role" choices={userRoles} />
-            {/* <TextInput source="pfpLocation" /> */}
             <ImageInput source="pfpLocation" label="Profile Picture" accept="image/*">
                 <ImageField source="src" title="title" />
             </ImageInput>

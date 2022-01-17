@@ -3,6 +3,8 @@ import { Admin, Resource, fetchUtils, AppBar } from 'react-admin';
 import apiHandler from "./apiHandler.ts";
 import authProvider from './authProvider';
 import customDataProvider from './Customs/customDataProvider';
+import customRoutes from "./Customs/customRoutes";
+import customLayout from "./Customs/customLayout";
 
 import UserIcon from '@material-ui/icons/People';
 import AvailablilityIcon from '@material-ui/icons/EventAvailable';
@@ -24,20 +26,8 @@ import { RssSlidesList, RssSlidesEdit, RssSlidesCreate } from './Entities/rss_sl
 import { MediaSlidesList, MediaSlidesEdit, MediaSlidesCreate } from './Entities/media_slides';
 import { TextSlidesList, TextSlidesEdit, TextSlidesCreate } from './Entities/text_slides';
 
-const httpClient = (url, options = {}) => {
-    if (!options.headers) {
-        options.headers = new Headers({ Accept: 'application/json' });
-    }
-    const token = localStorage.getItem('token');
-    options.headers.set('Authorization', `Bearer ${token}`);
-    return fetchUtils.fetchJson(url, options);
-};
-
-// const dataProvider = apiHandler(process.env.REACT_APP_DATA_URL, httpClient);
-const uploadCapableDataProvider = customDataProvider;
-
 const VigmoAdmin = () => (
-    <Admin dataProvider={uploadCapableDataProvider} authProvider={authProvider}>
+    <Admin dataProvider={customDataProvider} authProvider={authProvider} layout={customLayout} customRoutes={customRoutes}>
         {permissions => [
             permissions === 'ROLE_ADMIN' ? (
                 <Resource name="users" list={UsersList} edit={UsersEdit} create={UsersCreate} icon={UserIcon} />
