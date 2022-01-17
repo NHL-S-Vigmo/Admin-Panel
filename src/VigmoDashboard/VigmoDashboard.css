@@ -1,0 +1,27 @@
+.component-app {
+    width: 100vw;
+    height: 100vh;
+}
+
+.component-app-no-screen {
+    width: 100vw;
+    color: darkslategray;
+    font-size: 1.2rem;
+}
+
+.no-screen-center {
+    text-align: center;
+    display: block;
+    margin: auto;
+    margin-top: 15%;
+}
+
+.no-screen-admin-button {
+    font-size: 1rem;
+    text-decoration: none;
+    color: wheat;
+    cursor:pointer;
+    padding: 5px;
+    background-color: darkslategray;
+    border-radius: 5px;
+}
