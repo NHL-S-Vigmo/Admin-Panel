@@ -3,6 +3,7 @@ import React from "react";
 import "./Slideshow.css";
 import TextSlide from "./slides/TextSlide";
 import MediaSlide from "./slides/MediaSlide";
+import RssSlide from "./slides/RssSlide";
 import { fontSizes } from "../config/font-sizes"
 
 const colors = ["#0088FE", "#00C49F", "#FFBB28"];
@@ -22,9 +23,14 @@ function Slideshow() {
     resetTimeout();
     timeoutRef.current = setTimeout(
       () =>
-        setIndex((prevIndex) =>
-          prevIndex === colors.length - 1 ? 0 : prevIndex + 1
-        ),
+        setIndex((prevIndex) => {
+          if(prevIndex === colors.length - 1) {
+            //TODO: Rerender dia's for changes
+            return 0;
+          } else {
+            return prevIndex + 1;
+          }
+        }),
       delay
     );
 
@@ -47,8 +53,9 @@ function Slideshow() {
               style={{ backgroundColor }}
             >
               {/* <TextSlide fontSize={fontSizes.large} title="Kerstdinner">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ornare mollis tellus eu gravida. Nullam eu egestas orci, sit amet congue nulla. Nunc elementum tempor erat in imperdiet. Mauris pulvinar massa eget suscipit pulvinar. Praesent fermentum tortor vel nulla congue, sed suscipit erat sodales. Nunc pulvinar vitae eros ac sagittis. Aenean eleifend turpis egestas, lobortis sapien sed, vulputate libero. Aliquam hendrerit ante nec urna elementum tristique. Pellentesque ut purus mattis, tincidunt est in, vulputate magna. Suspendisse ante nibh, tempor quis dui vel, euismod pellentesque magna. Sed porttitor dolor eu nisi ullamcorper, eget mattis dui dapibus. Vestibulum rhoncus, augue mattis imperdiet fringilla, augue est consectetur ex, in ultrices enim justo nec diam. Vivamus auctor id lorem eu commodo. Praesent dignissim ligula sem, eu dictum diam efficitur et. Sed luctus, dui at maximus pretium, diam tortor blandit ligula, id convallis quam sem vel massa. Suspendisse pretium cursus augue vel fringilla. Duis id malesuada orci, sed posuere elit. Integer non rhoncus lacus. Cras quis mollis massa. Fusce interdum libero et magna porta, sit amet imperdiet eros feugiat.</TextSlide> */}
-              {/* <MediaSlide resource="http://localhost:6965/files/qKFrQxbc4PMwQ6IaOF6LECPBWN7qOT0VhFrgXISPnllJU1yMj5Xzbhx2s5RWJkMx/render" type="image/jpeg" audioEnabled></MediaSlide> */}
-              <MediaSlide resource="http://localhost:6965/files/4aa1MVwXq8Prrrz5oCXazFLSKNG2Cv1NvRBhohJ18hCJFusFWbLMkakEStRQPoY9/render" type="video/mp4" audioEnabled></MediaSlide>
+              {/* <MediaSlide fileKey="qKFrQxbc4PMwQ6IaOF6LECPBWN7qOT0VhFrgXISPnllJU1yMj5Xzbhx2s5RWJkMx" type="image/jpeg" audioEnabled /> */}
+              {/* <MediaSlide fileKey="4aa1MVwXq8Prrrz5oCXazFLSKNG2Cv1NvRBhohJ18hCJFusFWbLMkakEStRQPoY9" type="video/mp4" audioEnabled={false} /> */}
+              <RssSlide ></RssSlide>
             </div>
           ))}
         </div>
