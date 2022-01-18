@@ -1,23 +1,22 @@
 import * as React from "react";
-import { fetchUtils } from 'react-admin';
+import SideBarPanel from "./component/SideBarPanel";
 import SlideShowPanel from "./component/SlideShowPanel";
 import StatusBar from "./component/StatusBar";
 import { Link } from "react-router-dom";
 import './VigmoDashboard.css'
+import authProvider from "./logic/authProvider";
+import "@fontsource/plus-jakarta-sans"; 
 
-const httpClient = (url, options = {}) => {
-    if (!options.headers) {
-        options.headers = new Headers({ Accept: 'application/json' });
-    }
-    const token = localStorage.getItem('screen_token');
-    options.headers.set('Authorization', `Bearer ${token}`);
-    return fetchUtils.fetchJson(url, options);
-};
+if(!localStorage.getItem('screen_token')){ 
+    let pathArray = window.location.pathname.split('/');
+    let authKey = pathArray[1];
+    authProvider.login(authKey);
+}
 
 const VigmoDashboard = () => {
     // TODO: process this url, if its empty, return a button to the admin panel :)
     const path = window.location.pathname;
-    console.log(path);
+    
     if (path === '/') {
         return ((
             <div className="component-app-no-screen">
@@ -34,8 +33,8 @@ const VigmoDashboard = () => {
     else {
         return ((
             <div className="component-app">
+                <SideBarPanel />
                 <SlideShowPanel />
-                <StatusBar />
             </div>
         ))
     }

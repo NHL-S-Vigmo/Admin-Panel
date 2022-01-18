@@ -24,17 +24,17 @@ const customDataProvider = {
                 }
                 else{
                     return Promise.resolve(convertFileToBase64(file))
-                    .then((file64) => ({
-                        data: file64,
-                        name: `${file.rawFile.name}`,
-                        mimeType: `${file.rawFile.type}`,
-                    }))
-                    .then(data => uploadFileToApi(data))
-                    .then(file => {
-                        params.data.type = file.data.mimeType;
-                        params.data.resource = `${process.env.REACT_APP_DATA_URL}/files/${file.data.key}/render`;
-                        return dataProvider.update(resource, params);
-                    });
+                        .then((file64) => ({
+                            data: file64,
+                            name: `${file.rawFile.name}`,
+                            mimeType: `${file.rawFile.type}`,
+                        }))
+                        .then(data => uploadFileToApi(data))
+                        .then(file => {
+                            params.data.type = file.data.mimeType;
+                            params.data.resource = `${process.env.REACT_APP_DATA_URL}/files/${file.data.key}/render`;
+                            return dataProvider.update(resource, params);
+                        });
                 }
                 
             case 'users':
@@ -45,19 +45,30 @@ const customDataProvider = {
                     return dataProvider.update(resource, params);
                 }
                 else {
-                    //TODO: Check if it is an image
+                    if(image) {
+                        if('rawFile' in image) {
+                            //Check if it is an image
+                            if(image.rawFile instanceof File) {
+                                //TODO: Delete last image if you change it
 
-                    return Promise.resolve(convertFileToBase64(image))
-                        .then((picture64) => ({
-                            data: picture64,
-                            name: `${image.rawFile.name}`,
-                            mimeType: `${image.rawFile.type}`,
-                        }))
-                        .then(data => uploadFileToApi(data))
-                        .then(file => {
-                            params.data.pfpLocation = `${process.env.REACT_APP_DATA_URL}/files/${file.data.key}/render`;
-                            return dataProvider.update(resource, params);
-                        });
+                                return Promise.resolve(convertFileToBase64(image))
+                                    .then((picture64) => ({
+                                        data: picture64,
+                                        name: `${image.rawFile.name}`,
+                                        mimeType: `${image.rawFile.type}`,
+                                    }))
+                                    .then(data => uploadFileToApi(data))
+                                    .then(file => {
+                                        params.data.pfpLocation = `${process.env.REACT_APP_DATA_URL}/files/${file.data.key}/render`;
+                                        return dataProvider.update(resource, params);
+                                    });
+                            } else {
+                                return Promise.reject("We could not find the file that you want to set as your profile picture");
+                            }
+                        }
+                    } else {
+                        return Promise.reject("We could not find the file that you want to set as your profile picture");
+                    }
                 }
             default:
                 return dataProvider.update(resource, params);

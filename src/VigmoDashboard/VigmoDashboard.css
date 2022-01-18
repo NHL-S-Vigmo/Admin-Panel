@@ -1,6 +1,11 @@
+body {
+  font-family: "Plus Jakarta Sans";
+}
+
 .component-app {
     width: 100vw;
     height: 100vh;
+    display: flex;
 }
 
 .component-app-no-screen {
