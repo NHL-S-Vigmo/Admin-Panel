@@ -4,7 +4,7 @@ import apiHandler from "./apiHandler.ts";
 import authProvider from './authProvider';
 import customDataProvider from './Customs/customDataProvider';
 import customRoutes from "./Customs/customRoutes";
-import customLayout from "./Customs/customLayout";
+import customLayout from "./Customs/customLayout.js";
 
 import UserIcon from '@material-ui/icons/People';
 import AvailablilityIcon from '@material-ui/icons/EventAvailable';
