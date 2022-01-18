@@ -49,6 +49,7 @@ export const MediaSlidesCreate = props => (
             <TextInput source="startTime" />
             <TextInput source="endTime" />
             <BooleanInput source="audioEnabled" />
+            <TextInput source="type" />
             <TextInput source="resource" />
         </SimpleForm>
     </Create>
