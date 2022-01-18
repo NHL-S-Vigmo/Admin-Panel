@@ -7,16 +7,18 @@ import './VigmoDashboard.css'
 import authProvider from "./logic/authProvider";
 import "@fontsource/plus-jakarta-sans"; 
 
-if(!localStorage.getItem('screen_token')){ 
-    let pathArray = window.location.pathname.split('/');
-    let authKey = pathArray[1];
-    authProvider.login(authKey);
+
+const loginWithScreenKey = (key) => {
+    if(!localStorage.getItem('screen_token')){ 
+        authProvider.login(key);
+    }
 }
+
 
 const VigmoDashboard = () => {
     // TODO: process this url, if its empty, return a button to the admin panel :)
     const path = window.location.pathname;
-    
+    console.log(path);
     if (path === '/') {
         return ((
             <div className="component-app-no-screen">
@@ -31,6 +33,10 @@ const VigmoDashboard = () => {
         ))
     }
     else {
+
+        //todo: only enable this if you really wanna login, it broke half the code :()
+        //loginWithScreenKey(path);
+
         return ((
             <div className="component-app">
                 <SideBarPanel />

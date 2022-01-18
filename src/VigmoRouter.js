@@ -9,7 +9,7 @@ const VigmoRouter = () => {
     return (
         <Switch>
             <Route exact path='/admin' component={VigmoAdmin}></Route>
-            <Route component={VigmoDashboard}></Route>{/* Catch all other routes*/}
+            <Route path="/*" component={VigmoDashboard}></Route>{/* Catch all other routes*/}
         </Switch>
     );
 }
