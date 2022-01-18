@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Admin, Resource, fetchUtils, AppBar } from 'react-admin';
 import apiHandler from "./apiHandler.ts";
+import { createBrowserHistory as createHistory } from 'history';
 import authProvider from './authProvider';
 import customDataProvider from './Customs/customDataProvider';
 import customRoutes from "./Customs/customRoutes";
@@ -26,30 +27,34 @@ import { RssSlidesList, RssSlidesEdit, RssSlidesCreate } from './Entities/rss_sl
 import { MediaSlidesList, MediaSlidesEdit, MediaSlidesCreate } from './Entities/media_slides';
 import { TextSlidesList, TextSlidesEdit, TextSlidesCreate } from './Entities/text_slides';
 
-const VigmoAdmin = () => (
-    <Admin dataProvider={customDataProvider} authProvider={authProvider} layout={customLayout} customRoutes={customRoutes}>
-        {permissions => [
-            permissions === 'ROLE_ADMIN' ? (
-                <Resource name="users" list={UsersList} edit={UsersEdit} create={UsersCreate} icon={UserIcon} />
-            ) : null,
-            
-            permissions === 'ROLE_ADMIN' ? (
-                <Resource name="consultation_hours" list={ConsultationHoursList} edit={ConsultationHoursEdit} create={ConsultationHoursCreate} icon={ConsultationHourIcon} />
-            ) : null,
-            
-            permissions === 'ROLE_ADMIN' ? (
-                <Resource name="availabilities" list={AvailabilitiesList} edit={AvailabilitiesEdit} create={AvailabilitiesCreate} icon={AvailablilityIcon} />
-            ) : null,
-        
-            <Resource name="screens" list={ScreensList} edit={ScreensEdit} create={ScreensCreate} icon={ScreenIcon} />,
-            <Resource name="slideshows" list={SlideshowList} edit={SlideshowEdit} create={SlideshowCreate} icon={SlideshowIcon} />,
-            <Resource name="slideshow_variables" list={SlideshowVariablesList} edit={SlideshowVariablesEdit} create={SlideshowVariablesCreate} icon={SlideshowVariableIcon} />,
+const VigmoAdmin = () => {
+    const newHistory = createHistory({ basename: '/admin' });
 
-            <Resource name="rss_slides" list={RssSlidesList} edit={RssSlidesEdit} create={RssSlidesCreate} icon={RssSlideIcon} />,
-            <Resource name="media_slides" list={MediaSlidesList} edit={MediaSlidesEdit} create={MediaSlidesCreate} icon={MediaSlideIcon} />,
-            <Resource name="text_slides" list={TextSlidesList} edit={TextSlidesEdit} create={TextSlidesCreate} icon={TextSlideIcon} />,
-        ]}
-    </Admin>
-);
+    return (
+        <Admin dataProvider={customDataProvider} authProvider={authProvider} layout={customLayout} customRoutes={customRoutes} disableTelemetry={true} history={newHistory}>
+            {permissions => [
+                permissions === 'ROLE_ADMIN' ? (
+                    <Resource name="users" list={UsersList} edit={UsersEdit} create={UsersCreate} icon={UserIcon} />
+                ) : null,
+                
+                permissions === 'ROLE_ADMIN' ? (
+                    <Resource name="consultation_hours" list={ConsultationHoursList} edit={ConsultationHoursEdit} create={ConsultationHoursCreate} icon={ConsultationHourIcon} />
+                ) : null,
+                
+                permissions === 'ROLE_ADMIN' ? (
+                    <Resource name="availabilities" list={AvailabilitiesList} edit={AvailabilitiesEdit} create={AvailabilitiesCreate} icon={AvailablilityIcon} />
+                ) : null,
+            
+                <Resource name="screens" list={ScreensList} edit={ScreensEdit} create={ScreensCreate} icon={ScreenIcon} />,
+                <Resource name="slideshows" list={SlideshowList} edit={SlideshowEdit} create={SlideshowCreate} icon={SlideshowIcon} />,
+                <Resource name="slideshow_variables" list={SlideshowVariablesList} edit={SlideshowVariablesEdit} create={SlideshowVariablesCreate} icon={SlideshowVariableIcon} />,
+    
+                <Resource name="rss_slides" list={RssSlidesList} edit={RssSlidesEdit} create={RssSlidesCreate} icon={RssSlideIcon} />,
+                <Resource name="media_slides" list={MediaSlidesList} edit={MediaSlidesEdit} create={MediaSlidesCreate} icon={MediaSlideIcon} />,
+                <Resource name="text_slides" list={TextSlidesList} edit={TextSlidesEdit} create={TextSlidesCreate} icon={TextSlideIcon} />,
+            ]}
+        </Admin>
+    );
+}
 
 export default VigmoAdmin;

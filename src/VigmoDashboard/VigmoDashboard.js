@@ -15,10 +15,9 @@ const loginWithScreenKey = (key) => {
 }
 
 
-const VigmoDashboard = () => {
+const VigmoDashboard = (props) => {
     // TODO: process this url, if its empty, return a button to the admin panel :)
-    const path = window.location.pathname;
-    console.log(path);
+    const path = props.location.pathname
     if (path === '/') {
         return ((
             <div className="component-app-no-screen">
