@@ -27,8 +27,8 @@ import { RssSlidesList, RssSlidesEdit, RssSlidesCreate } from './Entities/rss_sl
 import { MediaSlidesList, MediaSlidesEdit, MediaSlidesCreate } from './Entities/media_slides';
 import { TextSlidesList, TextSlidesEdit, TextSlidesCreate } from './Entities/text_slides';
 
-const VigmoAdmin = () => {
-    const newHistory = createHistory({ basename: '/admin' });
+const VigmoAdmin = (params) => {
+    const newHistory = createHistory({ basename: '/admin', history: params.history });
 
     return (
         <Admin dataProvider={customDataProvider} authProvider={authProvider} layout={customLayout} customRoutes={customRoutes} disableTelemetry={true} history={newHistory}>
