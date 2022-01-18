@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/static/css/main.a9ba0ab1.css",
-    "main.js": "/static/js/main.12338ff2.js",
+    "main.js": "/static/js/main.e9510c52.js",
     "static/js/787.36369ffa.chunk.js": "/static/js/787.36369ffa.chunk.js",
     "static/media/plus-jakarta-sans-latin-400-normal.woff": "/static/media/plus-jakarta-sans-latin-400-normal.43e0fcf9ff600ba9fc40.woff",
     "static/media/plus-jakarta-sans-latin-400-normal.woff2": "/static/media/plus-jakarta-sans-latin-400-normal.2a7bb4510d86bea390e9.woff2",
     "index.html": "/index.html",
     "main.a9ba0ab1.css.map": "/static/css/main.a9ba0ab1.css.map",
-    "main.12338ff2.js.map": "/static/js/main.12338ff2.js.map",
+    "main.e9510c52.js.map": "/static/js/main.e9510c52.js.map",
     "787.36369ffa.chunk.js.map": "/static/js/787.36369ffa.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a9ba0ab1.css",
-    "static/js/main.12338ff2.js"
+    "static/js/main.e9510c52.js"
   ]
 }
