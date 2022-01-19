@@ -52,7 +52,8 @@ export const UsersCreate = props => (
             <TextInput source="password" />
             <BooleanInput source="enabled" defaultValue />
             <SelectInput source="role" choices={userRoles} />
-            <ImageInput source="pfpLocation" label="Profile Picture" accept="image/*">
+            <ImageField source="pfpLocation" label="Profile Picture" emptyText="Picture not available" />
+            <ImageInput source="pfpLocation" label="Upload a new picture" accept="image/*">
                 <ImageField source="src" title="title" />
             </ImageInput>
         </SimpleForm>

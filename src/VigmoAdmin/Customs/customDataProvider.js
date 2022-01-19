@@ -15,6 +15,65 @@ const dataProvider = apiHandler(process.env.REACT_APP_DATA_URL, httpClient);
 
 const customDataProvider = {
     ...dataProvider,
+    create: (resource, params) => {
+        switch (resource) {
+            case 'media_slides':
+                let file = params.data.resource;
+                if (typeof file === "string") {
+                    return dataProvider.create(resource, params);
+                }
+                else{
+                    return Promise.resolve(convertFileToBase64(file))
+                        .then((file64) => ({
+                            data: file64,
+                            name: `${file.rawFile.name}`,
+                            mimeType: `${file.rawFile.type}`,
+                        }))
+                        .then(data => uploadFileToApi(data))
+                        .then(file => {
+                            params.data.type = file.data.mimeType;
+                            params.data.resource = `${process.env.REACT_APP_DATA_URL}/files/${file.data.key}/render`;
+                            return dataProvider.create(resource, params);
+                        });
+                }
+                
+            case 'users':
+                let image = params.data.pfpLocation;
+                // check if the file was changed, you can do this by checking if its type is string, 
+                // if the image was changed, it would be of type object.
+                if (typeof image === "string") {
+                    return dataProvider.create(resource, params);
+                }
+                else {
+                    if(image) {
+                        if('rawFile' in image) {
+                            //Check if it is an image
+                            if(image.rawFile instanceof File) {
+                                //TODO: Delete last image if you change it
+
+                                return Promise.resolve(convertFileToBase64(image))
+                                    .then((picture64) => ({
+                                        data: picture64,
+                                        name: `${image.rawFile.name}`,
+                                        mimeType: `${image.rawFile.type}`,
+                                    }))
+                                    .then(data => uploadFileToApi(data))
+                                    .then(file => {
+                                        params.data.pfpLocation = `${process.env.REACT_APP_DATA_URL}/files/${file.data.key}/render`;
+                                        return dataProvider.create(resource, params);
+                                    });
+                            } else {
+                                return Promise.reject("We could not find the file that you want to set as your profile picture");
+                            }
+                        }
+                    } else {
+                        return Promise.reject("We could not find the file that you want to set as your profile picture");
+                    }
+                }
+            default:
+                return dataProvider.create(resource, params);
+        }
+    },
     update: (resource, params) => {
         switch (resource) {
             case 'media_slides':
