@@ -30,3 +30,12 @@ body {
     background-color: darkslategray;
     border-radius: 5px;
 }
+
+.loading-screen {
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}

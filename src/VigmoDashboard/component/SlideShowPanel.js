@@ -5,6 +5,7 @@ import Slideshow from './Slideshow.js'
 
 const SlideShowPanel = (props) => {
   const [loaded, setLoaded] = React.useState(false);
+  const [emptyDb, setEmptyDb] = React.useState(false);
 
   //set properties about all slideshows.
   const [slideshows, setSlideshows] = React.useState([]);
@@ -18,7 +19,14 @@ const SlideShowPanel = (props) => {
   //put all the api requests in a useEffect that runs once, this way the api is not spammed upon UI changes.
   React.useEffect(() => {
     api.getSlideshows().then((data) => {
-      setSlideshows(data.data);
+
+      if (data.data.length == 0) {
+        setEmptyDb(true);
+        setLoaded(true);
+      }
+      else {
+        setSlideshows(data.data);
+      }
     });
   }, []);
 
@@ -51,22 +59,35 @@ const SlideShowPanel = (props) => {
   //function to execute when a slideshow has done its rotation, this means move on to the next slideshow, if there are any.
   const slideShowCompleted = (id) => {
     console.log("Done with slideshow: ", slideshows[id]);
-    setLoaded(false);
 
-    // get the next slideshow and assign it to the properties.
-    // let nextSlideId = 0;
-    // if (currentSlideshow != null) nextSlideId = slideshows.indexOf(currentSlideshow) + 1;
+    let nextSlideId = 0;
+    if (currentSlideshow != null && currentSlideshow != undefined) {
+      nextSlideId = slideshows.indexOf(currentSlideshow) + 1;
+      console.log("nextSlideId: ", nextSlideId);
+    }
+    else{
+      setLoaded(false);
+    }
+    
+    if (nextSlideId >= slideshows.length) nextSlideId = 0; //start again.
 
-    // if (slideshows.length >= nextSlideId) nextSlideId = 0; //start again.
-
-    // setCurrentSlideshow(slideshows[nextSlideId]);
-    // setSlideshowName(slideshows[nextSlideId].name);
+    console.log("id: ", nextSlideId);
+    setCurrentSlideshow(slideshows[nextSlideId]);
+    setSlideshowName(slideshows[nextSlideId].name);
   };
 
   if (!loaded) {
     return (
       <div className="loading-screen">
-        Loading
+        <div>Loading...</div>
+      </div>
+    );
+  }
+
+  if (emptyDb) {
+    return (
+      <div className="loading-screen">
+        <div>There are no slideshows configured for this screen.</div>
       </div>
     );
   }
@@ -74,7 +95,7 @@ const SlideShowPanel = (props) => {
   return (
     <div className="component-slideshow-panel">
       <div>
-        <Slideshow title={slideshowName} apiHandler={api} currentSlideshow={currentSlideshow} onSlideshowCompleted={slideShowCompleted} />
+        <Slideshow id={slideshows.indexOf(currentSlideshow)} title={slideshowName} apiHandler={api} currentSlideshow={currentSlideshow} onSlideshowCompleted={slideShowCompleted} />
       </div>
     </div>
   );

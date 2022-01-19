@@ -1,15 +1,39 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export default class TextSlide extends React.Component {
-    render() {
-        return (
-            <div className="slideContent">
-                <h1>{ this.props.title }</h1>
-                <div style={{ fontSize: this.props.fontSize }}>
-                    { this.props.children }
-                </div>
-            </div>
-        );
+function TextSlide(props) {
+    const [text, setText] = React.useState([]);
+    const [loaded, setLoaded] = React.useState(false);
+
+    const api = props.api;
+  
+    React.useEffect(() => {
+      api.getSlide(props.path).then((data) => {
+        setText(data.data);
+
+        if (!loaded) {
+          setLoaded(true);
+        }
+      });
+    }, []);
+
+
+    if (!loaded) {
+      return (
+        <div className="loading-screen">
+          <div>Loading...</div>
+        </div>
+      );
     }
+
+    return (
+        <div className="slideContent">
+            <h1>{ text.title }</h1>
+            <div style={{ fontSize: props.fontSize }}>
+                { text.message }
+            </div>
+        </div>
+    );
 }
+
+export default TextSlide;
