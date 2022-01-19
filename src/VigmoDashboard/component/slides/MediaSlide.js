@@ -9,7 +9,6 @@ function MediaSlide(props) {
   
     React.useEffect(() => {
       api.getSlide(props.path).then((data) => {
-        console.log(data);
         setMedia(data.data);
 
         if (!loaded) {
