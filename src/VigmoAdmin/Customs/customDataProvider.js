@@ -31,7 +31,22 @@ const customDataProvider = {
                         }))
                         .then(data => uploadFileToApi(data))
                         .then(file => {
-                            params.data.type = file.data.mimeType;
+                            let fileType;
+                            switch(file.data.mimeType) {
+                                case(file.data.mimeType.includes('image/')):
+                                    fileType = 'image';
+                                    break;
+                                case(file.data.mimeType.includes('video/')):
+                                    fileType = 'video';
+                                    break;
+                                case(file.data.mimeType == "application/vnd.openxmlformats-officedocument.presentationml.presentation"):
+                                    fileType = 'powerpoint';
+                                    break;
+                                default:
+                                    fileType = 'unknown';
+                                    break;
+                            }
+                            params.data.type = fileType;
                             params.data.resource = `${process.env.REACT_APP_DATA_URL}/files/${file.data.key}/render`;
                             return dataProvider.create(resource, params);
                         });
@@ -90,7 +105,22 @@ const customDataProvider = {
                         }))
                         .then(data => uploadFileToApi(data))
                         .then(file => {
-                            params.data.type = file.data.mimeType;
+                            let fileType;
+                            switch(file.data.mimeType) {
+                                case(file.data.mimeType.includes('image/')):
+                                    fileType = 'image';
+                                    break;
+                                case(file.data.mimeType.includes('video/')):
+                                    fileType = 'video';
+                                    break;
+                                case(file.data.mimeType == "application/vnd.openxmlformats-officedocument.presentationml.presentation"):
+                                    fileType = 'powerpoint';
+                                    break;
+                                default:
+                                    fileType = 'unknown';
+                                    break;
+                            }
+                            params.data.type = fileType;
                             params.data.resource = `${process.env.REACT_APP_DATA_URL}/files/${file.data.key}/render`;
                             return dataProvider.update(resource, params);
                         });
