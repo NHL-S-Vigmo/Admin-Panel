@@ -39,32 +39,14 @@ function Slideshow(props) {
     else {
       //get the first slideshow and assign it to the properties.
       setCurrentSlide(slides[0]);
-    }
-  }, [slides]);
-
-  // function to call when the current slideshow changes.
-  React.useEffect(() => {
-    if (currentSlide == null) {
-      console.log("no slide set yet, aborting slide rendering.")
-
-    }
-    else {
-      console.log("current slide", currentSlide);
-
-      const slideType = currentSlide.path.split('/').filter(i => i);
-      //todo: set a timeout to update the currentslide after the duration of this one passes.
-      switch (slideType) {
-        case "text_slide":
-
-          break;
-      }
 
       if (!loaded) {
         setLoaded(true);
       }
     }
-  }, [currentSlide]);
+  }, [slides]);
 
+  // function to call when the current slideshow changes.
 
   const timeoutRef = React.useRef(null);
 
@@ -74,31 +56,23 @@ function Slideshow(props) {
     }
   }
 
-  function renderNextSlide() {
-    let nextSlideId = 0;
-    if (currentSlide != null) nextSlideId = slides.indexOf(currentSlide) + 1;
-
-    //check if the slideshow rotation should end here.
-    if (slides.length >= nextSlideId) props.onSlideshowCompleted();
-
-    setCurrentSlide(slides[nextSlideId]);
-  }
-
-
   // effect to run when the slide index changes
   React.useEffect(() => {
     resetTimeout();
+    
+    const slideDelay = 3000; //slides[index].delay
+
     timeoutRef.current = setTimeout(
       () =>
         setIndex((prevIndex) => {
-          if (prevIndex === colors.length - 1) {
-            //TODO: Rerender dia's for changes
+          if (prevIndex === slides.length - 1) {
+            props.onSlideshowCompleted(); //tell the slideshow parent that it made a full rotation.
             return 0;
           } else {
             return prevIndex + 1;
           }
         }),
-      delay
+        slideDelay
     );
 
     return () => {
@@ -123,24 +97,22 @@ function Slideshow(props) {
           style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}>
           {slides.map((slideObject, index) => {
             const slideType = slideObject.path.split('/').filter(i => i);
-            //todo: set a timeout to update the currentslide after the duration of this one passes.
             let resource = <div>Component not found</div>
-            
-            if(slideType[0] == "text_slides") {
+            if (slideType[0] == "text_slides") {
               resource = <TextSlide fontSize={fontSizes.large} api={api} path={slideObject.path} ></TextSlide>
-            } else if(slideType[0] == "media_slides") {
+            } else if (slideType[0] == "media_slides") {
               resource = <MediaSlide api={api} path={slideObject.path} />
-            } else if(slideType[0] == "rss_slides") {
+            } else if (slideType[0] == "rss_slides") {
               resource = <RssSlide api={api} path={slideObject.path} />
             }
-            
+
             return (
               <div
                 className="slide"
                 key={index}
                 style={{ backgroundColor: "#0088FE" }}
               >
-                { resource }
+                {resource}
               </div>
             );
           })}

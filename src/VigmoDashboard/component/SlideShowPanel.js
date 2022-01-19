@@ -5,6 +5,7 @@ import Slideshow from './Slideshow.js'
 
 const SlideShowPanel = (props) => {
   const [loaded, setLoaded] = React.useState(false);
+  const [emptyDb, setEmptyDb] = React.useState(false);
 
   //set properties about all slideshows.
   const [slideshows, setSlideshows] = React.useState([]);
@@ -18,7 +19,14 @@ const SlideShowPanel = (props) => {
   //put all the api requests in a useEffect that runs once, this way the api is not spammed upon UI changes.
   React.useEffect(() => {
     api.getSlideshows().then((data) => {
-      setSlideshows(data.data);
+
+      if (data.data.length == 0) {
+        setEmptyDb(true);
+        setLoaded(true);
+      }
+      else {
+        setSlideshows(data.data);
+      }
     });
   }, []);
 
@@ -67,6 +75,14 @@ const SlideShowPanel = (props) => {
     return (
       <div className="loading-screen">
         <div>Loading...</div>
+      </div>
+    );
+  }
+
+  if (emptyDb) {
+    return (
+      <div className="loading-screen">
+        <div>There are no slideshows configured for this screen.</div>
       </div>
     );
   }
