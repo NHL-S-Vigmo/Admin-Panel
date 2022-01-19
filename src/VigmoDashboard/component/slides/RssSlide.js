@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import * as rssParser from 'react-native-rss-parser';
 
 export default class RssSlide extends React.Component {
 

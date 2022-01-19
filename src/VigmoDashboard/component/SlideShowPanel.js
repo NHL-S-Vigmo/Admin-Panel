@@ -1,25 +1,22 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import "./SlideShowPanel.css";
 import Slideshow from './Slideshow.js'
 
-export default class SlideShowPanel extends React.Component {
-  static propTypes = {
-    clickHandler: PropTypes.func,
-  };
+const SlideShowPanel = (props) => {
 
-  handleClick = buttonName => {
-    this.props.clickHandler(buttonName);
-  };
+  //calculate values for current slideshow...
 
-  render() {
-    return (
-      <div className="component-slideshow-panel">
-        <div>
-            <Slideshow />
-        </div>
+  const api = props.apiHandler;
+  api.getSlideshows().then((data) => console.log(data));
+  //console.log();
+  return (
+    <div className="component-slideshow-panel">
+      <div>
+        <Slideshow />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+export default SlideShowPanel;

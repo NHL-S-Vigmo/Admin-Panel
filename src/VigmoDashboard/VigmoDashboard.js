@@ -5,18 +5,36 @@ import StatusBar from "./component/StatusBar";
 import { Link } from "react-router-dom";
 import './VigmoDashboard.css'
 import authProvider from "./logic/authProvider";
-import "@fontsource/plus-jakarta-sans"; 
+import apiHandler from "./logic/apiHandler";
+import "@fontsource/plus-jakarta-sans";
+import { fetchUtils } from 'ra-core';
 
-
-const loginWithScreenKey = (key) => {
-    if(!localStorage.getItem('screen_token')){ 
-        authProvider.login(key);
+const httpClient = (url, options = {}) => {
+    if (!options.headers) {
+        options.headers = new Headers({ Accept: 'application/json' });
     }
-}
+    const token = localStorage.getItem('screen_token');
+    options.headers.set('Authorization', `Bearer ${token}`);
+    console.log("Attempting http request to " + url, token);
+    return fetchUtils.fetchJson(url, options);
+};
 
+const dataProvider = apiHandler(process.env.REACT_APP_DATA_URL, httpClient);
+
+const loginWithScreenKey = (key) => new Promise((resolve, reject) => {
+    authProvider.getName()
+        .then((name) => {
+            return resolve(localStorage.getItem('screen_token'));
+        })
+        .catch((error) => {
+            console.log("Token expired, getting new token.");
+            const token = authProvider.login(key);
+            return resolve(token);
+        });
+});
+    
 
 const VigmoDashboard = (props) => {
-    // TODO: process this url, if its empty, return a button to the admin panel :)
     const path = props.location.pathname
     if (path === '/') {
         return ((
@@ -32,20 +50,30 @@ const VigmoDashboard = (props) => {
         ))
     }
     else {
+        const signInKey = path.replace("/", "");
+        const [loaded, setLoaded] = React.useState(false);
 
-        //todo: only enable this if you really wanna login, it broke half the code :()
-        //loginWithScreenKey(path);
+        
+        React.useEffect(() => {
+            loginWithScreenKey(signInKey).then((result) => {
+                setLoaded(true);
+                console.log(result);
+            });
+        }, []);
+
+        if (!loaded) {
+            return (<div>
+                Signign in.
+            </div>);
+        }
 
         return ((
             <div className="component-app">
                 <SideBarPanel />
-                <SlideShowPanel />
+                <SlideShowPanel apiHandler={dataProvider} />
             </div>
         ))
     }
-
-
-
 };
 
 export default VigmoDashboard;
