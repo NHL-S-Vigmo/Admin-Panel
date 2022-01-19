@@ -21,7 +21,7 @@ function TextSlide(props) {
     if (!loaded) {
       return (
         <div className="loading-screen">
-          Loading
+          <div>Loading...</div>
         </div>
       );
     }

@@ -60,7 +60,7 @@ const VigmoDashboard = (props) => {
 
         if (!loaded) {
             return (<div className="loading-screen">
-                Please wait while vigmo is attempting verification.
+                <div>Please wait while vigmo is attempting verification...</div>
             </div>);
         }
 
