@@ -72,9 +72,10 @@ function Slideshow(props) {
     timeoutRef.current = setTimeout(
       () => {
         console.log("Slideshow Completed", index + 1 > slidesLength);
-        if (index + 1 > slidesLength) {
+        if (index + 1 >= slidesLength) {
           resetTimeout();
           props.onSlideshowCompleted(props.id); //tell the slideshow parent that it made a full rotation.
+          setIndex(0);
         }
         else{
           setIndex((prevIndex) => {
@@ -89,7 +90,7 @@ function Slideshow(props) {
     return () => {
       resetTimeout();
     };
-  }, [index, currentSlideshow]);
+  }, [index, currentSlideshow, slides]);
 
 
   if (!loaded) {

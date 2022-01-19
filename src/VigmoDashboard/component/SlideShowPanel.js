@@ -72,6 +72,7 @@ const SlideShowPanel = (props) => {
     if (nextSlideId >= slideshows.length) nextSlideId = 0; //start again.
 
     console.log("id: ", nextSlideId);
+    
     setCurrentSlideshow(slideshows[nextSlideId]);
     setSlideshowName(slideshows[nextSlideId].name);
   };
