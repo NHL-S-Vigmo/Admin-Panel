@@ -28,7 +28,7 @@ function RssSlide(props) {
 
     return (
         <div className="slideContent" style={{padding: 0}}>
-            <div className="rssjemoeder">
+            <div className="rssWrapper">
                 <h2>{ rss.title }</h2>
                 <div className="rssImageWrapper">
                     <img src={rss.image} className="rssImage"></img>
