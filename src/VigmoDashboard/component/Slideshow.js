@@ -144,7 +144,7 @@ function Slideshow(props) {
       </div>
       <fieldset className="slideFrame">
         <legend className="slideType">
-          Evenement
+          {props.title}
         </legend>
         <div className="slideshowDots">
           {slides.map((_, idx) => (

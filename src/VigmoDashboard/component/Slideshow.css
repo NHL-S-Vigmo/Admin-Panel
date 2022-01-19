@@ -49,6 +49,20 @@
   height: 80vh;
 }
 
+.rssjemoeder {
+  padding: 90px 80px 0px 90px;
+}
+
+.rssDescriptionWrapper > p, 
+.rssDescriptionWrapper > h1, 
+.rssDescriptionWrapper > h2, 
+.rssDescriptionWrapper > h3, 
+.rssDescriptionWrapper > h4, 
+.rssDescriptionWrapper > h5, 
+.rssDescriptionWrapper > h6 {
+  margin: unset;
+}
+
 /* Buttons */
 
 .slideshowDots {
