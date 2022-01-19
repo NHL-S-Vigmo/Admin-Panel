@@ -27,9 +27,16 @@ function Slideshow(props) {
   React.useEffect(() => {
     api.getSlides(currentSlideshow.id).then((data) => {
       console.log(data);
-      setSlides(data.data);
+      if (data.data.length == 0) {
+        //if this slideshow contains no slides, tell the parent that its completed its rotation.
+        props.onSlideshowCompleted(props.id);
+      }
+      else {
+        setSlides(data.data);
+        setIndex(0);
+      }
     });
-  }, []);
+  }, [currentSlideshow]);
 
   //function to call when the list with slideshows updates.
   React.useEffect(() => {
@@ -59,26 +66,30 @@ function Slideshow(props) {
   // effect to run when the slide index changes
   React.useEffect(() => {
     resetTimeout();
-    
-    const slideDelay = 3000; //slides[index].delay
 
+    const slideDelay = 3000;//slides[index].duration;
+    const slidesLength = slides.length;
     timeoutRef.current = setTimeout(
-      () =>
-        setIndex((prevIndex) => {
-          if (prevIndex === slides.length - 1) {
-            props.onSlideshowCompleted(); //tell the slideshow parent that it made a full rotation.
-            return 0;
-          } else {
+      () => {
+        console.log("Slideshow Completed", index + 1 > slidesLength);
+        if (index + 1 > slidesLength) {
+          resetTimeout();
+          props.onSlideshowCompleted(props.id); //tell the slideshow parent that it made a full rotation.
+        }
+        else{
+          setIndex((prevIndex) => {
             return prevIndex + 1;
-          }
-        }),
-        slideDelay
+          });
+        }
+      }
+      ,
+      slideDelay
     );
 
     return () => {
       resetTimeout();
     };
-  }, [index]);
+  }, [index, currentSlideshow]);
 
 
   if (!loaded) {

@@ -59,16 +59,21 @@ const SlideShowPanel = (props) => {
   //function to execute when a slideshow has done its rotation, this means move on to the next slideshow, if there are any.
   const slideShowCompleted = (id) => {
     console.log("Done with slideshow: ", slideshows[id]);
-    setLoaded(false);
 
-    // get the next slideshow and assign it to the properties.
-    // let nextSlideId = 0;
-    // if (currentSlideshow != null) nextSlideId = slideshows.indexOf(currentSlideshow) + 1;
+    let nextSlideId = 0;
+    if (currentSlideshow != null && currentSlideshow != undefined) {
+      nextSlideId = slideshows.indexOf(currentSlideshow) + 1;
+      console.log("nextSlideId: ", nextSlideId);
+    }
+    else{
+      setLoaded(false);
+    }
+    
+    if (nextSlideId >= slideshows.length) nextSlideId = 0; //start again.
 
-    // if (slideshows.length >= nextSlideId) nextSlideId = 0; //start again.
-
-    // setCurrentSlideshow(slideshows[nextSlideId]);
-    // setSlideshowName(slideshows[nextSlideId].name);
+    console.log("id: ", nextSlideId);
+    setCurrentSlideshow(slideshows[nextSlideId]);
+    setSlideshowName(slideshows[nextSlideId].name);
   };
 
   if (!loaded) {
@@ -90,7 +95,7 @@ const SlideShowPanel = (props) => {
   return (
     <div className="component-slideshow-panel">
       <div>
-        <Slideshow title={slideshowName} apiHandler={api} currentSlideshow={currentSlideshow} onSlideshowCompleted={slideShowCompleted} />
+        <Slideshow id={slideshows.indexOf(currentSlideshow)} title={slideshowName} apiHandler={api} currentSlideshow={currentSlideshow} onSlideshowCompleted={slideShowCompleted} />
       </div>
     </div>
   );
