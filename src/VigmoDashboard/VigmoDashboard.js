@@ -15,7 +15,7 @@ const httpClient = (url, options = {}) => {
     }
     const token = localStorage.getItem('screen_token');
     options.headers.set('Authorization', `Bearer ${token}`);
-    console.log("Attempting http request to " + url, token);
+    console.log("HTTP -> " + url + " token length: ", token.length);
     return fetchUtils.fetchJson(url, options);
 };
 
@@ -32,7 +32,6 @@ const loginWithScreenKey = (key) => new Promise((resolve, reject) => {
             return resolve(token);
         });
 });
-    
 
 const VigmoDashboard = (props) => {
     const path = props.location.pathname
@@ -53,17 +52,15 @@ const VigmoDashboard = (props) => {
         const signInKey = path.replace("/", "");
         const [loaded, setLoaded] = React.useState(false);
 
-        
         React.useEffect(() => {
             loginWithScreenKey(signInKey).then((result) => {
                 setLoaded(true);
-                console.log(result);
             });
         }, []);
 
         if (!loaded) {
-            return (<div>
-                Signign in.
+            return (<div className="loading-screen">
+                Please wait while vigmo is attempting verification.
             </div>);
         }
 
