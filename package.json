@@ -1,8 +1,8 @@
 {
   "name": "vigmo-admin",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "private": true,
-  "homepage": "http://vigmo.ga",
+  "homepage": "https://vigmo.ga",
   "dependencies": {
     "@fontsource/plus-jakarta-sans": "^4.5.0",
     "@testing-library/jest-dom": "^5.16.1",
