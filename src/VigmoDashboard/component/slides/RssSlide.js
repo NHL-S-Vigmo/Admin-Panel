@@ -1,17 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function RssSlide(props) {
-    const rssId = props.path.split('/').filter(i => i)[1];
-    
+function RssSlide(props) {    
     const [rss, setRss] = React.useState([]);
     const [loaded, setLoaded] = React.useState(false);
 
     const api = props.api;
   
     React.useEffect(() => {
-      api.getRss(rssId).then((data) => {
-        console.log(data);
+      api.getSlide(props.path + '/latest').then((data) => {
         setRss(data.data);
 
         if (!loaded) {

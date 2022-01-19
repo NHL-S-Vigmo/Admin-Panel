@@ -9,7 +9,7 @@ export default (apiUrl, httpClient) => ({
         .then(({ json }) => ({
             data: json,
         })),
-    getRss: (rssId) => httpClient(`${apiUrl}/rss_slides/${rssId}/latest`)
+    getSlide: (path) => httpClient(`${apiUrl}${path}`)
         .then(({ json }) => ({
             data: json,
         })),

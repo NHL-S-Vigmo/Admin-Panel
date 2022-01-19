@@ -1,22 +1,50 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export default class MediaSlide extends React.Component {
-    render() {
-        let resourceUrl = process.env.REACT_APP_DATA_URL + "/files/" + this.props.fileKey + "/render";
-        let resource;
-        if(this.props.type.includes("image/")) {
-            resource = <img src={resourceUrl} className="sizingResource"></img>
-        } else if(this.props.type.includes("video/")) {
-            resource = <video autoPlay muted={this.props.audioEnabled?null:'muted'} className="sizingResource"><source src={resourceUrl + "?t=" + new Date().getTime()} type={this.props.type} />The browser does not support the video tag.</video>
+function MediaSlide(props) {
+    const [media, setMedia] = React.useState([]);
+    const [loaded, setLoaded] = React.useState(false);
+
+    const api = props.api;
+  
+    React.useEffect(() => {
+      api.getSlide(props.path).then((data) => {
+        console.log(data);
+        setMedia(data.data);
+
+        if (!loaded) {
+          setLoaded(true);
         }
-        
-        return (
-            <div className="slideContent">
-                <div className="resource">
-                    { resource }
-                </div>
-            </div>
-        );
+      });
+    }, []);
+
+
+    if (!loaded) {
+      return (
+        <div className="loading-screen">
+          Loading
+        </div>
+      );
     }
+    
+    function buildResource(media) {
+        let resourceUrl = media.resource;
+        let resource = <div>Resource could not be build</div>;
+        if(media.type.includes("image/")) {
+            resource = <img src={resourceUrl} className="sizingResource"></img>
+        } else if(media.type.includes("video/")) {
+            resource = <video autoPlay muted={media.audioEnabled?null:'muted'} className="sizingResource"><source src={resourceUrl + "?t=" + new Date().getTime()} type={props.type} />The browser does not support the video tag.</video>
+        }
+        return resource;
+    }
+
+    return (
+        <div className="slideContent">
+            <div className="resource">
+                { buildResource(media) }
+            </div>
+        </div>
+    );
 }
+
+export default MediaSlide

@@ -124,46 +124,13 @@ function Slideshow(props) {
           {slides.map((slideObject, index) => {
             const slideType = slideObject.path.split('/').filter(i => i);
             //todo: set a timeout to update the currentslide after the duration of this one passes.
-            console.log(slideType);
-
-            // if(slideType == "text_slides") {
-            //     return (
-            //       <div
-            //         className="slide"
-            //         key={index}
-            //         style={{ backgroundColor: "#0088FE" }}
-            //       >
-            //         <TextSlide fontSize={fontSizes.large} title="Kerstdinner">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ornare mollis tellus eu gravida. Nullam eu egestas orci, sit amet congue nulla. Nunc elementum tempor erat in imperdiet. Mauris pulvinar massa eget suscipit pulvinar. Praesent fermentum tortor vel nulla congue, sed suscipit erat sodales. Nunc pulvinar vitae eros ac sagittis. Aenean eleifend turpis egestas, lobortis sapien sed, vulputate libero. Aliquam hendrerit ante nec urna elementum tristique. Pellentesque ut purus mattis, tincidunt est in, vulputate magna. Suspendisse ante nibh, tempor quis dui vel, euismod pellentesque magna. Sed porttitor dolor eu nisi ullamcorper, eget mattis dui dapibus. Vestibulum rhoncus, augue mattis imperdiet fringilla, augue est consectetur ex, in ultrices enim justo nec diam. Vivamus auctor id lorem eu commodo. Praesent dignissim ligula sem, eu dictum diam efficitur et. Sed luctus, dui at maximus pretium, diam tortor blandit ligula, id convallis quam sem vel massa. Suspendisse pretium cursus augue vel fringilla. Duis id malesuada orci, sed posuere elit. Integer non rhoncus lacus. Cras quis mollis massa. Fusce interdum libero et magna porta, sit amet imperdiet eros feugiat.</TextSlide>
-            //       </div>
-            //     );
-            // } else if(slideType == "media_slides") {
-            //     return (
-            //       <div
-            //         className="slide"
-            //         key={index}
-            //         style={{ backgroundColor: "#0088FE" }}
-            //       >
-            //         <MediaSlide fileKey="4aa1MVwXq8Prrrz5oCXazFLSKNG2Cv1NvRBhohJ18hCJFusFWbLMkakEStRQPoY9" type="video/mp4" audioEnabled={false} />
-            //       </div>
-            //     );
-            // } else if(slideType == "rss_slides") {
-            //     return (
-            //       <div
-            //         className="slide"
-            //         key={index}
-            //         style={{ backgroundColor: "#0088FE" }}
-            //       >
-            //         <RssSlide api={api} path={slideObject.path} />
-            //       </div>
-            //     );
-            // }
-            const resource = <MediaSlide fileKey="4aa1MVwXq8Prrrz5oCXazFLSKNG2Cv1NvRBhohJ18hCJFusFWbLMkakEStRQPoY9" type="video/mp4" audioEnabled={false} />
+            let resource = <div>Component not found</div>
             
-            if(slideType == "text_slides") {
-              resource = <TextSlide fontSize={fontSizes.large} title="Kerstdinner">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ornare mollis tellus eu gravida. Nullam eu egestas orci, sit amet congue nulla. Nunc elementum tempor erat in imperdiet. Mauris pulvinar massa eget suscipit pulvinar. Praesent fermentum tortor vel nulla congue, sed suscipit erat sodales. Nunc pulvinar vitae eros ac sagittis. Aenean eleifend turpis egestas, lobortis sapien sed, vulputate libero. Aliquam hendrerit ante nec urna elementum tristique. Pellentesque ut purus mattis, tincidunt est in, vulputate magna. Suspendisse ante nibh, tempor quis dui vel, euismod pellentesque magna. Sed porttitor dolor eu nisi ullamcorper, eget mattis dui dapibus. Vestibulum rhoncus, augue mattis imperdiet fringilla, augue est consectetur ex, in ultrices enim justo nec diam. Vivamus auctor id lorem eu commodo. Praesent dignissim ligula sem, eu dictum diam efficitur et. Sed luctus, dui at maximus pretium, diam tortor blandit ligula, id convallis quam sem vel massa. Suspendisse pretium cursus augue vel fringilla. Duis id malesuada orci, sed posuere elit. Integer non rhoncus lacus. Cras quis mollis massa. Fusce interdum libero et magna porta, sit amet imperdiet eros feugiat.</TextSlide>
-            } else if(slideType == "media_slides") {
-              resource = <MediaSlide fileKey="4aa1MVwXq8Prrrz5oCXazFLSKNG2Cv1NvRBhohJ18hCJFusFWbLMkakEStRQPoY9" type="video/mp4" audioEnabled={false} />
-            } else if(slideType == "rss_slides") {
+            if(slideType[0] == "text_slides") {
+              resource = <TextSlide fontSize={fontSizes.large} api={api} path={slideObject.path} ></TextSlide>
+            } else if(slideType[0] == "media_slides") {
+              resource = <MediaSlide api={api} path={slideObject.path} />
+            } else if(slideType[0] == "rss_slides") {
               resource = <RssSlide api={api} path={slideObject.path} />
             }
             
