@@ -9,7 +9,6 @@ function MediaSlide(props) {
   
     React.useEffect(() => {
       api.getSlide(props.path).then((data) => {
-        console.log(data);
         setMedia(data.data);
 
         if (!loaded) {
@@ -22,7 +21,7 @@ function MediaSlide(props) {
     if (!loaded) {
       return (
         <div className="loading-screen">
-          Loading
+          <div>Loading...</div>
         </div>
       );
     }
