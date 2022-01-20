@@ -29,10 +29,12 @@ function MediaSlide(props) {
     function buildResource(media) {
         let resourceUrl = media.resource;
         let resource = <div>Resource could not be build</div>;
-        if(media.type.includes("image/")) {
+        if(media.type.includes("image")) {
             resource = <img src={resourceUrl} className="sizingResource"></img>
-        } else if(media.type.includes("video/")) {
+        } else if(media.type.includes("video")) {
             resource = <video autoPlay muted={media.audioEnabled?null:'muted'} className="sizingResource"><source src={resourceUrl + "?t=" + new Date().getTime()} type={props.type} />The browser does not support the video tag.</video>
+        } else if(media.type.includes("presentation")){
+          resource = <iframe width="100%" height="630" src={"https://view.officeapps.live.com/op/embed.aspx?src=" + media.resourceUrl} ></iframe>;
         }
         return resource;
     }
