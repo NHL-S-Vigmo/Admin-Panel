@@ -32,20 +32,17 @@ const customDataProvider = {
                         .then(data => uploadFileToApi(data))
                         .then(file => {
                             let fileType;
-                            switch(file.data.mimeType) {
-                                case(file.data.mimeType.includes('image/')):
-                                    fileType = 'image';
-                                    break;
-                                case(file.data.mimeType.includes('video/')):
-                                    fileType = 'video';
-                                    break;
-                                case(file.data.mimeType == "application/vnd.openxmlformats-officedocument.presentationml.presentation"):
-                                    fileType = 'powerpoint';
-                                    break;
-                                default:
-                                    fileType = 'unknown';
-                                    break;
+                            const mimeType = file.data.mimeType;
+                            if(mimeType.includes('image/')){
+                                fileType = 'image';
+                            } else if (mimeType.includes('video/')){
+                                fileType = 'video';
+                            } else if (mimeType === "application/vnd.openxmlformats-officedocument.presentationml.presentation") {
+                                fileType = 'powerpoint';
+                            } else {
+                                fileType = 'unknown';
                             }
+                            
                             params.data.type = fileType;
                             params.data.resource = `${process.env.REACT_APP_DATA_URL}/files/${file.data.key}/render`;
                             return dataProvider.create(resource, params);
