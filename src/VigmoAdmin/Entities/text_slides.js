@@ -1,5 +1,6 @@
 import * as React from "react";
-import { List, Datagrid, TextField, ReferenceField, BooleanField, NumberField, DateField, UrlField, Edit, TextInput, BooleanInput, NumberInput, DateInput, SimpleForm, Create, ReferenceInput, SelectInput } from 'react-admin';
+import { List, Datagrid, TextField, ReferenceField, BooleanField, NumberField, DateField, RichTextField, Edit, TextInput, BooleanInput, NumberInput, DateInput, SimpleForm, Create, ReferenceInput, SelectInput } from 'react-admin';
+import RichTextInput from 'ra-input-rich-text';
 
 export const TextSlidesList = props => (
     <List {...props}>
@@ -13,7 +14,7 @@ export const TextSlidesList = props => (
             <TextField source="startTime" />
             <TextField source="endTime" />
             <TextField source="title" />
-            <TextField source="message" />
+            <RichTextField source="message" />
         </Datagrid>
     </List>
 );
@@ -30,7 +31,7 @@ export const TextSlidesEdit = props => (
             <TextInput source="startTime" />
             <TextInput source="endTime" />
             <TextInput source="title" />
-            <TextInput source="message" />
+            <RichTextInput source="message" />
         </SimpleForm>
     </Edit>
 );
@@ -46,7 +47,7 @@ export const TextSlidesCreate = props => (
             <TextInput source="startTime" />
             <TextInput source="endTime" />
             <TextInput source="title" />
-            <TextInput source="message" />
+            <RichTextInput source="message" />
         </SimpleForm>
     </Create>
 );

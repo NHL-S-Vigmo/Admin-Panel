@@ -67,25 +67,27 @@ function Slideshow(props) {
   React.useEffect(() => {
     resetTimeout();
 
-    const slideDelay = slides[index].duration;
-    const slidesLength = slides.length;
-    timeoutRef.current = setTimeout(
-      () => {
-        console.log("Slideshow Completed", index + 1 > slidesLength);
-        if (index + 1 >= slidesLength) {
-          resetTimeout();
-          props.onSlideshowCompleted(props.id); //tell the slideshow parent that it made a full rotation.
-          setIndex(0);
+    if(slides.length !== 0) {
+      const slideDelay = slides[index].duration;
+      const slidesLength = slides.length;
+      timeoutRef.current = setTimeout(
+        () => {
+          console.log("Slideshow Completed", index + 1 > slidesLength);
+          if (index + 1 >= slidesLength) {
+            resetTimeout();
+            props.onSlideshowCompleted(props.id); //tell the slideshow parent that it made a full rotation.
+            setIndex(0);
+          }
+          else{
+            setIndex((prevIndex) => {
+              return prevIndex + 1;
+            });
+          }
         }
-        else{
-          setIndex((prevIndex) => {
-            return prevIndex + 1;
-          });
-        }
-      }
-      ,
-      slideDelay
-    );
+        ,
+        slideDelay * 1000
+      );
+    }
 
     return () => {
       resetTimeout();
