@@ -34,7 +34,7 @@ function MediaSlide(props) {
         } else if(media.type.includes("video")) {
             resource = <video autoPlay muted={media.audioEnabled?null:'muted'} className="sizingResource"><source src={resourceUrl + "?t=" + new Date().getTime()} type={props.type} />The browser does not support the video tag.</video>
         } else if(media.type.includes("presentation")){
-          resource = <iframe width="100%" height="630" src={"https://view.officeapps.live.com/op/embed.aspx?src=" + media.resourceUrl} ></iframe>;
+          resource = <iframe width="100%" height="630" src={"https://view.officeapps.live.com/op/embed.aspx?src=" + encodeURIComponent(media.resourceUrl)} ></iframe>;
         }
         return resource;
     }
