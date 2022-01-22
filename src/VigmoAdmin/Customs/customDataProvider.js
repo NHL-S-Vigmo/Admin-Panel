@@ -38,7 +38,7 @@ const customDataProvider = {
                             } else if (mimeType.includes('video/')) {
                                 fileType = 'video';
                             } else if (mimeType === "application/vnd.openxmlformats-officedocument.presentationml.presentation") {
-                                fileType = 'powerpoint';
+                                fileType = 'presentation';
                             } else {
                                 fileType = 'unknown';
                             }
@@ -110,7 +110,7 @@ const customDataProvider = {
                             } else if (mimeType.includes('video/')) {
                                 fileType = 'video';
                             } else if (mimeType === "application/vnd.openxmlformats-officedocument.presentationml.presentation") {
-                                fileType = 'powerpoint';
+                                fileType = 'presentation';
                             } else {
                                 fileType = 'unknown';
                             }
