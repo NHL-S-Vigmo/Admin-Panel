@@ -22,7 +22,7 @@ const customDataProvider = {
                 if (typeof file === "string") {
                     return dataProvider.create(resource, params);
                 }
-                else{
+                else {
                     return Promise.resolve(convertFileToBase64(file))
                         .then((file64) => ({
                             data: file64,
@@ -33,22 +33,22 @@ const customDataProvider = {
                         .then(file => {
                             let fileType;
                             const mimeType = file.data.mimeType;
-                            if(mimeType.includes('image/')){
+                            if (mimeType.includes('image/')) {
                                 fileType = 'image';
-                            } else if (mimeType.includes('video/')){
+                            } else if (mimeType.includes('video/')) {
                                 fileType = 'video';
                             } else if (mimeType === "application/vnd.openxmlformats-officedocument.presentationml.presentation") {
                                 fileType = 'powerpoint';
                             } else {
                                 fileType = 'unknown';
                             }
-                            
+
                             params.data.type = fileType;
                             params.data.resource = `${process.env.REACT_APP_DATA_URL}/files/${file.data.key}/render`;
                             return dataProvider.create(resource, params);
                         });
                 }
-                
+
             case 'users':
                 let image = params.data.pfpLocation;
                 // check if the file was changed, you can do this by checking if its type is string, 
@@ -57,10 +57,10 @@ const customDataProvider = {
                     return dataProvider.create(resource, params);
                 }
                 else {
-                    if(image) {
-                        if('rawFile' in image) {
+                    if (image) {
+                        if ('rawFile' in image) {
                             //Check if it is an image
-                            if(image.rawFile instanceof File) {
+                            if (image.rawFile instanceof File) {
                                 //TODO: Delete last image if you change it
 
                                 return Promise.resolve(convertFileToBase64(image))
@@ -93,7 +93,7 @@ const customDataProvider = {
                 if (typeof file === "string") {
                     return dataProvider.update(resource, params);
                 }
-                else{
+                else {
                     return Promise.resolve(convertFileToBase64(file))
                         .then((file64) => ({
                             data: file64,
@@ -103,26 +103,24 @@ const customDataProvider = {
                         .then(data => uploadFileToApi(data))
                         .then(file => {
                             let fileType;
-                            switch(file.data.mimeType) {
-                                case(file.data.mimeType.includes('image/')):
-                                    fileType = 'image';
-                                    break;
-                                case(file.data.mimeType.includes('video/')):
-                                    fileType = 'video';
-                                    break;
-                                case(file.data.mimeType == "application/vnd.openxmlformats-officedocument.presentationml.presentation"):
-                                    fileType = 'powerpoint';
-                                    break;
-                                default:
-                                    fileType = 'unknown';
-                                    break;
+                            const mimeType = file.data.mimeType;
+
+                            if (mimeType.includes('image/')) {
+                                fileType = 'image';
+                            } else if (mimeType.includes('video/')) {
+                                fileType = 'video';
+                            } else if (mimeType === "application/vnd.openxmlformats-officedocument.presentationml.presentation") {
+                                fileType = 'powerpoint';
+                            } else {
+                                fileType = 'unknown';
                             }
+
                             params.data.type = fileType;
                             params.data.resource = `${process.env.REACT_APP_DATA_URL}/files/${file.data.key}/render`;
                             return dataProvider.update(resource, params);
                         });
                 }
-                
+
             case 'users':
                 let image = params.data.pfpLocation;
                 // check if the file was changed, you can do this by checking if its type is string, 
@@ -131,10 +129,10 @@ const customDataProvider = {
                     return dataProvider.update(resource, params);
                 }
                 else {
-                    if(image) {
-                        if('rawFile' in image) {
+                    if (image) {
+                        if ('rawFile' in image) {
                             //Check if it is an image
-                            if(image.rawFile instanceof File) {
+                            if (image.rawFile instanceof File) {
                                 //TODO: Delete last image if you change it
 
                                 return Promise.resolve(convertFileToBase64(image))
