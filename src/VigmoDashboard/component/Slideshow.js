@@ -67,7 +67,7 @@ function Slideshow(props) {
   React.useEffect(() => {
     resetTimeout();
 
-    const slideDelay = 3000;//slides[index].duration;
+    const slideDelay = slides[index].duration;
     const slidesLength = slides.length;
     timeoutRef.current = setTimeout(
       () => {
