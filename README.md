@@ -21,6 +21,7 @@ To setup the project, we need to set some configuration values in order to work 
   ```
   REACT_APP_DATA_URL=http://localhost:6965
   REACT_APP_AUTH_URL=${REACT_APP_DATA_URL}/authenticate
+  REACT_APP_SCREEN_AUTH_URL=${REACT_APP_DATA_URL}/authenticate_screen
   ```
 - Save the file
 
