@@ -12,11 +12,11 @@ Start by downloading the project and saving it to your new favourite folder. Onc
 
 ![open-cmd-help](https://raw.githubusercontent.com/NHL-S-Vigmo/Admin-Panel/main/docs/img/open-cmd-help.png "Open CMD")
 
-With the open cmd tab (where the path should end with the name of your favourite root folder where you installed the project) type the following command: `npm install` and pressing `enter`. This may take a minute or two. 
+With the open cmd tab (where the path should end with the name of your favourite root folder where you installed the project) type the following command: `npm install` and pressing `enter`. This may take a minute or two. Do not close the window, you will need it after the configuration part.
 
 ## Configuration
 To setup the project, we need to set some configuration values in order to work correctly. These values have to be stored in an `.env` file.
-- Create your own `.env` file in the root map
+- Create your own `.env` file in the root folder
 - Set the values from the example below according to your environment.
   ```
   REACT_APP_DATA_URL=http://localhost:6965
@@ -28,7 +28,7 @@ To setup the project, we need to set some configuration values in order to work 
 The `REACT_APP_DATA_URL` is the url where the api is served. The `REACT_APP_AUTH_URL` is the route where the application wants to authenticate the user. For most instances you dont have to change the authentication url.
 
 ## Run the project
-After installing the project, start the Admin Panel by typing the following command: `npm start` and pressing `enter`. This can also take a minute or two. When this is finished, your browser should show the welcome screen like the screenshot below.
+In the console window that we left open before the configuration part, we can start the project. Start the Admin Panel by typing the following command: `npm start` and pressing `enter`. This can also take a minute or two. When this is finished, your browser should show the welcome screen like the screenshot below.
 
 ![welcome-screen](docs/img/welcome-screen.png "Welcome Screen")
 
