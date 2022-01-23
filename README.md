@@ -1,3 +1,6 @@
+[![Latest release](https://badgen.net/github/release/NHL-S-Vigmo/Admin-Panel)](https://github.com/NHL-S-Vigmo/Admin-Panel/releases)
+[![Website vigmo.ga](https://img.shields.io/website-up-down-green-red/https/vigmo.ga.svg)](https://vigmo.ga/)
+
 # NHL-S-Vigmo Admin Panel
 _This project works with the [NHL-S-Vigmo Api](https://github.com/NHL-S-Vigmo/Api), which is a project for the Advanced Java Minor and is made by Students. The Admin Panel will allow the teachers to manage the digital dashboard in the aula_
 
